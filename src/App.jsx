@@ -14,11 +14,11 @@ export default function LoginPage() {
     evento.preventDefault();
 
     try {
-      // Autenticando com Firebase
+    
       await signInWithEmailAndPassword(auth, usuarioEmail, usuarioSenha);
       alert('Login realizado com sucesso');
 
-      // Criando JWT
+     
       const chaveSecreta = new TextEncoder().encode('minhaChave');
       const tokenJwt = await new SignJWT({ role: 'admin' })
         .setProtectedHeader({ alg: 'HS256' })
@@ -26,10 +26,9 @@ export default function LoginPage() {
         .setExpirationTime('2h')
         .sign(chaveSecreta);
 
-      // Salvando token localmente
       localStorage.setItem('authToken', tokenJwt);
 
-      // Redirecionamento
+
       redirecionar('/view');
       alert('Você está logado!');
     } catch (erro) {
